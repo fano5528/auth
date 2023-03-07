@@ -14,6 +14,7 @@ const db = process.env.MONGODB_URI;
 // middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
 app.use(sessions({
     cookieName: 'session',
     secret: 'blablablalbslbnfsvjnsdfljkdsfjld9238430497t4.jef34',
