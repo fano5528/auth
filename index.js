@@ -72,7 +72,7 @@ app.post('/login', (req, res) => {
             }
             if (bcrypt.compareSync(req.body.password, user[0].password)) {
                 req.session.userId = user[0]._id;
-                return res.json(user[0]);
+                return res.send({token: "test123"});
             }
             return res.status(400).json({ password: 'Incorrect password' });
         }
