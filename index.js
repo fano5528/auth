@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const UserModel = require('./models/Users');
 const bcrypt = require('bcryptjs');
 const sessions = require('client-sessions');
+const cors = require('cors');
 //open dotenv file
 require('dotenv').config();
 //get the environment variable for the database connection string
