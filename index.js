@@ -7,6 +7,7 @@ const UserModel = require('./models/Users');
 const bcrypt = require('bcryptjs');
 const sessions = require('client-sessions');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
 //open dotenv file
 require('dotenv').config();
 //get the environment variable for the database connection string
@@ -72,7 +73,8 @@ app.post('/login', (req, res) => {
             }
             if (bcrypt.compareSync(req.body.password, user[0].password)) {
                 req.session.userId = user[0]._id;
-                return res.send({token: "test123"});
+                const token = jwt.sign({ id: user[0]._id }, process.env.JWT_SECRET, { expiresIn: 86400 });
+                return res.send({ auth: true, token: token });
             }
             return res.status(400).json({ password: 'Incorrect password' });
         }
