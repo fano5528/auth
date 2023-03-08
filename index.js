@@ -16,7 +16,6 @@ const db = process.env.MONGODB_URI;
 // middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors({origin: 'https://plankton-app-dmrtd.ondigitalocean.app'}));
 app.use(sessions({
     cookieName: 'session',
     secret: 'blablablalbslbnfsvjnsdfljkdsfjld9238430497t4.jef34',
@@ -65,7 +64,7 @@ app.post('/register', (req, res) => {
         .catch(err => res.json({status: 'error', message: err}));
 });
 
-app.post('/login', (req, res) => {
+app.post('/login', cors({origin: 'https://plankton-app-dmrtd.ondigitalocean.app/login'}), (req, res) => {
     UserModel.find({ email: req.body.email })
         .then(user => {
             if (user.length === 0) {
