@@ -73,8 +73,8 @@ app.post('/login', (req, res) => {
             }
             if (bcrypt.compareSync(req.body.password, user[0].password)) {
                 req.session.userId = user[0]._id;
-                //const token = jwt.sign({ id: user[0]._id }, process.env.JWT_SECRET, { expiresIn: 86400 });
-                return res.send({ token: "token123"});
+                const token = jwt.sign({ id: user[0]._id }, process.env.JWT_SECRET, { expiresIn: 86400 });
+                return res.send({ auth: true, token: token});
             }
             return res.status(400).json({ password: 'Incorrect password' });
         }
