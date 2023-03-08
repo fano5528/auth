@@ -15,8 +15,8 @@ const db = process.env.MONGODB_URI;
 
 // middleware
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors({origin: 'https://plankton-app-dmrtd.ondigitalocean.app'}));
 app.use(bodyParser.json());
+app.use(cors({origin: 'https://plankton-app-dmrtd.ondigitalocean.app'}));
 app.use(sessions({
     cookieName: 'session',
     secret: 'blablablalbslbnfsvjnsdfljkdsfjld9238430497t4.jef34',
@@ -73,8 +73,8 @@ app.post('/login', (req, res) => {
             }
             if (bcrypt.compareSync(req.body.password, user[0].password)) {
                 req.session.userId = user[0]._id;
-                const token = jwt.sign({ id: user[0]._id }, process.env.JWT_SECRET, { expiresIn: 86400 });
-                return res.send({ auth: true, token: token });
+                //const token = jwt.sign({ id: user[0]._id }, process.env.JWT_SECRET, { expiresIn: 86400 });
+                return res.send({ token: "token123"});
             }
             return res.status(400).json({ password: 'Incorrect password' });
         }
