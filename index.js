@@ -80,6 +80,20 @@ app.post('/login', (req, res) => {
         }
 )});
 
+app.get('/dashboard', async (req, res) => {
+    const token = req.headers['x-access-token'];
+    
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await UserModel.findById(decoded.id);
+        return res.status(200).json({ message: 'Welcome to the dashboard!', user: user });
+    }
+    catch (err) {
+        return res.status(401).json({ message: 'Unauthorized user!' });
+    }
+
+});
+
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 });
