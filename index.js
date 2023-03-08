@@ -15,6 +15,7 @@ const db = process.env.MONGODB_URI;
 
 // middleware
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors({origin: 'https://plankton-app-dmrtd.ondigitalocean.app/login'}));
 app.use(bodyParser.json());
 app.use(sessions({
     cookieName: 'session',
